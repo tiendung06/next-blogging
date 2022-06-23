@@ -30,7 +30,21 @@ export async function getStaticProps(context: any) {
   };
 }
 
-const DetailCast: React.FC = ({ cast }: any) => {
+interface ICast {
+  name: string;
+  birthday: string;
+  deathday: string;
+  biography: string;
+  place_of_birth: string;
+  profile_path: string;
+  popularity: number;
+}
+
+type TProps = {
+  cast: ICast;
+};
+
+const DetailCast: React.FC<TProps> = ({ cast }) => {
   const {
     name,
     birthday,
@@ -40,7 +54,6 @@ const DetailCast: React.FC = ({ cast }: any) => {
     profile_path,
     popularity,
   } = cast;
-  console.log(cast);
   return (
     <div className="mx-auto max-w-[1440px] font px-5 pt-10">
       <Head>

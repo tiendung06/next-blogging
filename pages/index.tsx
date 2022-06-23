@@ -14,6 +14,12 @@ export async function getStaticProps() {
   };
 }
 
+interface ICast {
+  id: number;
+  name: string;
+  profile_path: string;
+}
+
 const Home: NextPage = ({ actor }: any) => {
   return (
     <div className="mx-auto font bg-slate-50">
@@ -24,7 +30,7 @@ const Home: NextPage = ({ actor }: any) => {
       </Head>
       <h1 className="text-4xl text-black text-center p-10 font-bold">Actor</h1>
       <div className="grid gap-3 item mx-auto py-5">
-        {actor.map((item: any) => (
+        {actor.map((item: ICast) => (
           <Card
             key={item.id}
             name={item.name}
