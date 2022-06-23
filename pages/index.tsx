@@ -1,8 +1,20 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import List from "./components/List";
+import Card from "./components/Card";
 
-const Home: NextPage = () => {
+export async function getStaticProps() {
+  const resp = await fetch(
+    "https://api.themoviedb.org/3/person/popular?api_key=25eac7bfded2875800a2dcebaa8ab051"
+  );
+  const data = await resp.json();
+  return {
+    props: {
+      actor: data.results,
+    },
+  };
+}
+
+const Home: NextPage = ({ actor }: any) => {
   return (
     <div className="mx-auto font bg-slate-50">
       <Head>
@@ -11,7 +23,16 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="text-4xl text-black text-center p-10 font-bold">Actor</h1>
-      <List></List>
+      <div className="grid gap-3 item mx-auto py-5">
+        {actor.map((item: any) => (
+          <Card
+            key={item.id}
+            name={item.name}
+            id={item.id}
+            profile_path={item.profile_path}
+          ></Card>
+        ))}
+      </div>
     </div>
   );
 };
